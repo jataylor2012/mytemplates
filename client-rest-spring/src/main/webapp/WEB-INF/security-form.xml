@@ -1,0 +1,30 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                    http://www.springframework.org/schema/security 
+                    http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<http use-expressions="true">
+		<intercept-url pattern="/login*" access="permitAll"/>
+		<intercept-url pattern="/css/*" access="permitAll"/>
+		<intercept-url pattern="/img/*" access="permitAll"/>
+		<intercept-url pattern="/**" access="isFullyAuthenticated()" />
+		<form-login login-page="/login.html" login-processing-url="/j_spring_security_check"
+			authentication-failure-url="/login_error.html" default-target-url="/index.html"
+			always-use-default-target="false" />
+	</http>
+	
+	<beans:bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder ref="encoder" />
+			<user-service>
+				<!-- Passwords stored as salted hashes, password is koala -->
+				<user name="user1" password="864acff7515e4e419d4266e474ea14a889dce340784038b704a30453e01245eed374f881f3df8e1e" authorities="Standard" />
+				<user name="admin1" password="864acff7515e4e419d4266e474ea14a889dce340784038b704a30453e01245eed374f881f3df8e1e" authorities="Admin" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>  
