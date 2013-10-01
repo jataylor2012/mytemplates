@@ -1,4 +1,4 @@
 mytemplates
 ===========
 
-For holding commonly used application templates.
+For holding commonly used application templates and example code.
